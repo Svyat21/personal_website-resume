@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="container text-center mt-5 pt-3">
+        <h4 class="mt-5">Контактная информация</h4>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.phone_number.label }}<br>
+                {{ form.phone_number(size=32) }}<br>
+                {% for error in form.phone_number.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.email.label }}<br>
+                {{ form.email(size=32) }}<br>
+                {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.link_social_network.label }}<br>
+                {{ form.link_social_network(size=32) }}<br>
+            </p>
+            <p>
+                {{ form.comment_link_social_network.label }}<br>
+                {{ form.comment_link_social_network(size=32) }}<br>
+            </p>
+            <p>
+                {{ form.additional_link_social_network.label }}<br>
+                {{ form.additional_link_social_network }}
+                <br>
+            </p>
+            <p>
+                {{ form.additional_comment_link_social_network.label }}<br>
+                {{ form.additional_comment_link_social_network(size=32) }}<br>
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
+{% endblock %}

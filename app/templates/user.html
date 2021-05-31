@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container" id="user_card">
+        <div class="card mb-5" style="background-color: #FEF9C7; color: #026670; margin-top: 5rem;">
+            <h5 class="card-header">{{ user.username }}</h5>
+            <div class="card-body">
+                <h5 class="card-title font-weight-bold">О себе:</h5>
+                <p class="card-text">
+                    {% if user.about_me %}
+                        <p>{{ user.about_me }}</p>
+                    {% endif %}
+                    {% if user.last_seen %}
+                        <h5>Был в сети:</h5>
+                        <p>{{ user.last_seen.strftime("%d.%m.%Y-%H:%M:%S") }}</p>
+                    {% endif %}
+                    <p>
+                        Подписчики: {{ user.followers.count() }}
+                    </p>
+                    <p>
+                        Подписки: {{ user.followed.count() }}
+                    </p>
+                    {% if user == current_user %}
+                        <hr>
+                        <a role="button" href="{{ url_for('edit_profile') }}" class="btn btn-outline-dark waves-effect waves-light">Редактировать информацию о себе</a>
+                        <a role="button" href="{{ url_for('new_post') }}" class="btn btn-outline-dark waves-effect waves-light">Добавить пост</a>
+                        <a role="button" href="{{ url_for('resume', username=user.username) }}" class="btn btn-outline-dark waves-effect waves-light">Резюме</a>
+                    {% elif not current_user.is_following(user) %}
+                        <p>
+                            <a href="{{ url_for('follow', username=user.username) }}">Подписаться</a>
+                        </p>
+                    {% else %}
+                        <p>
+                            <a href="{{ url_for('unfollow', username=user.username) }}">Отписаться</a>
+                        </p>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        {% if user == current_user %}
+            <div class="card mt-3 mb-3" style="background-color: #EDEAE5; background-size: cover;">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h6>Лента подписок</h6>
+                    </div>
+                </div>
+            </div>
+            {% for post in follow_posts %}
+                <div id="bacg_text" class="card pt-3 mt-3">
+                    <div class="card-body">
+                        <p class="card-title">
+                            <a href="{{ url_for('user', username=post.author.username) }}">
+                            {{ post.author.username }}
+                            </a> 
+                            пишет:
+                        </p>
+                        <p class="card-text">{{ post.body }}</p>
+                        <p class="btn btn-primary">{{ post.timestamp.strftime("%d.%m.%Y-%H:%M:%S") }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="card mt-3 mb-3" style="background-color: #EDEAE5; background-size: cover;">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h6>Записи пользователя {{ user.username }}</h6>
+                    </div>
+                </div>
+            </div>
+            {% for post in posts %}
+                {% include '_post.html' %}
+            {% endfor %}
+        {% endif %}
+
+        {% if user == current_user %}
+            <div class="card mt-3 mb-3" style="background-color: #EDEAE5; background-size: cover;">
+                <div class="card-body">
+                    <div class="card-text text-center">
+                        {% if prev_url %}
+                            <a role="button" href="{{ follow_prev_url }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                предыдущая
+                            </a>
+                        {% endif %}
+                        {% if next_url  %}
+                            <a role="button" href="{{ follow_next_url }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                следующая
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="card mt-3 mb-3" style="background-color: #EDEAE5; background-size: cover;">
+                <div class="card-body">
+                    <div class="card-text text-center">
+                        {% if prev_url %}
+                            <a role="button" href="{{ prev_url }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                предыдущая
+                            </a>
+                        {% endif %}
+                        {% if next_url  %}
+                            <a role="button" href="{{ next_url }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                следующая
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

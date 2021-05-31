@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container text-center mt-5 pt-3">
+        <h4 class="mt-5">Редактирование образования</h4>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.level.label }}<br>
+                {{ form.level(size=32) }}<br>
+                {% for error in form.level.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.educational_institution.label }}<br>
+                {{ form.educational_institution(size=32) }}<br>
+                {% for error in form.educational_institution.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.faculty.label }}<br>
+                {{ form.faculty(size=32) }}<br>
+                {% for error in form.faculty.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.specialization.label }}<br>
+                {{ form.specialization(size=32) }}<br>
+                {% for error in form.specialization.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.year_completion.label }}<br>
+                {{ form.year_completion(size=32) }}<br>
+                {% for error in form.year_completion.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
+{% endblock %}

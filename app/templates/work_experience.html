@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="container text-center mt-5 pt-3">
+        <h4 class="mt-5">Опыт работы</h4>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.started_working.label }}<br>
+                {{ form.started_working(size=32) }}<br>
+                {% for error in form.started_working.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.ending.label }}<br>
+                {{ form.ending(size=32) }}<br>
+                {% for error in form.ending.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.organization.label }}<br>
+                {{ form.organization(size=32) }}<br>
+                {% for error in form.organization.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.region.label }}<br>
+                {{ form.region(size=32) }}<br>
+                {% for error in form.region.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.company_field_activity.label }}<br>
+                {{ form.company_field_activity(size=32) }}<br>
+                {% for error in form.company_field_activity.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.post.label }}<br>
+                {{ form.post(size=32) }}<br>
+                {% for error in form.post.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.responsibilities_workplace.label }}<br>
+                {{ form.responsibilities_workplace(cols=40, rows=4) }}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
+{% endblock %}

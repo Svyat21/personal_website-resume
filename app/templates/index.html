@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div id="intro" class="view">
+        <div class="mask rgba-black-strong h-100">
+            <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+                <div class="row d-flex justify-content-center text-center">
+                    <div class="col-md-10" style="margin-top: 5rem!important;">
+                        <h2 class="display-4 font-weight-bold text-dark pt-5 mb-2">
+                            Личный сайт-резюме
+                        </h2>
+                        <hr class="hr-light">
+                        <h4 class="text-dark my-4">Здесь я реализую свои навыки в web-разработке на python</h4>
+                        <h4 class="text-dark my-4">
+                            Проект будет развивается по мере моего роста
+                        </h4>
+                        <a role="button" href="#resume" class="btn btn-outline-dark waves-effect waves-light mb-5">
+                            Перейти к резюме
+                        </a>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <div class="container pt-3">
+        <div id="bacg_text_1" class="card">
+            <div id="resume" class="card-body text-center">
+                {% if current_user.is_anonymous %}
+                    <h5>Для того, чтобы использовать всю функциональность сайта</h5>
+                    <h5>необходимо зарегистрироваться.</h5>
+                    <h5>После регистрации вы можете заполнить личный профиль, написать пост</h5>
+                    <h5>или составить собственное резюме.</h5>
+                {% else %}
+                    <h4>Привет, {{current_user.username }}!</h4>
+                {% endif %}
+            </div>
+          </div>
+    </div>
+    <div class="container mb-5" id="user_card">
+        <div class="card" style="background-color: #FEF9C7; color: #026670; margin-top: 1rem;">
+            <h5 class="card-header text-center">Резюме</h5>
+            <div class="card-body">
+                <p class="card-text">
+                    
+                    {% if person_inform[0] %}
+                        <h5>
+                            <!-- ФИО -->
+                            {{ person_inform[0].surname }} 
+                            {{ person_inform[0].first_name }} 
+                            {{ person_inform[0].patronymic }}
+                            
+                        </h5><br>
+                        <h6>Основная информация:</h6>
+                        <p class="pl-5">
+                            <!-- Пол, возраст, дата рождения, город проживания -->
+                            {{ person_inform[0].gender }}, 
+                            родился - {{ person_inform[0].date_of_birth }}, 
+                            проживает в г. {{ person_inform[0].city_of_residence }}<br>
+                        </p>
+                        <h6>Контакты:</h6>
+                        <p>
+                            <!-- Контакты -->
+                            <p class="font-weight-bold pl-5">
+                                {{ person_inform[0].phone_number }}<br>
+                                {{ person_inform[0].email }}
+                            </p>
+                            <p class="pl-5">
+                                {{ person_inform[0].comment_link_social_network }}: {{ person_inform[0].link_social_network }}<br>   
+                                {{ person_inform[0].additional_comment_link_social_network }}: <a href="{{ person_inform[0].additional_link_social_network }}">GitHub</a>
+                            </p>
+                        </p>
+                        <p>
+                            <h6>Желаемая должность:</h6>
+                            <!-- Желаемая позиция -->
+                            <h6 class="pl-5">{{ person_inform[0].desired_position }}</h6>
+                            <p class="pl-5">{{ person_inform[0].comment_desired_position }}</p>
+                            <h6 class="pl-5">{{ person_inform[0].salary }} руб.</h6>
+                            <p class="pl-5">
+                                Занятость: {{ person_inform[0].employment }}<br>
+                                График работы: {{ person_inform[0].work_schedule }}<br>
+                            </p>
+                        </p>
+                    {% endif %}
+                    <p class="card-text">
+                        <h6>Опыт работы:</h6>
+                        {% if works[0] %}
+                            {% for work in works %}
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        {{ work.started_working }}<br>
+                                        {{ work.ending }}
+                                    </div>
+                                    <div class="col-md-10">
+                                        {{ work.organization }}<br>
+                                        {{ work.region }}<br>
+                                        {{ work.company_field_activity }}<br>
+                                        {{ work.post }}<br>
+                                        {{ work.responsibilities_workplace }}
+                                    </div>
+                                </div>
+                                <br>
+                            {% endfor %}
+                        {% endif %}
+                        {% if add_inf[0] %}
+                            <h6>Ключевые навыки:</h6>
+                            <p class="pl-5">{{ add_inf[0].key_skills }}</p>
+                            <h6>Обо мне:</h6>
+                            <p class="pl-5">{{ add_inf[0].about_me }}</p>
+                            <h6>Знание языков:</h6>
+                            <p class="pl-5">{{ add_inf[0].knowledge_languages }}</p>
+                            <p class="pl-5">Гражданство: {{ add_inf[0].citizenship }}</p>
+                        {% endif %}
+
+                        <br><h6>Образование:</h6>
+                        {% if trainings[0] %}
+                            {% for training in trainings %}
+                                {% if training.level %}
+                                    <hr>
+                                    <h6>{{ training.level }}</h6><br>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            {{ training.year_completion }}<br>
+                                        </div>
+                                        <div class="col-md-10">
+                                            {{ training.educational_institution }}<br>
+                                            {{ training.faculty }}<br>
+                                            {{ training.specialization }}<br>
+                                        </div>
+                                    </div>
+                                    <br>
+                                {% endif %}
+                            {% endfor %}
+
+                            <br><h6>Дополнительное образование:</h6>
+                            {% for training in trainings %}
+                                {% if training.conducting_organization %}
+                                    <hr>
+                                    <h6>{{ training.comment }}</h6><br>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            {{ training.year_completion }}<br>
+                                        </div>
+                                        <div class="col-md-10">
+                                            {{ training.conducting_organization }}<br>
+                                            {{ training.specialization }}<br>
+                                        </div>
+                                    </div>
+                                    <br>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-3" style="background-color: #EDEAE5; color: #026670;">
+            <div class="card-body">
+                <p class="card-text">
+                    {% if current_user.is_anonymous %}
+                        Чтобы оставлять сообщения <a href="{{ url_for('login') }}">войдите или зарегистрируйтесь</a>
+                    {% else %}
+                        <form action="" method="post">
+                            {{ form.hidden_tag() }}
+                            <p>
+                                {{ form.post.label }}<br>
+                                {{ form.post(cols=40, rows=3) }}<br>
+                                {% for error in form.post.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </p>
+                            <p>{{ form.submit() }}</p>
+                        </form>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        {% for post in posts %}
+            <div id="bacg_text" class="card pt-3 mt-3">
+                <div class="card-body">
+                    <p class="card-title">
+                        <a href="{{ url_for('user', username=post.author.username) }}">
+                        {{ post.author.username }}
+                        </a> 
+                        пишет:
+                    </p>
+                    <p class="card-text">{{ post.body }}</p>
+                    <p class="btn btn-primary">{{ post.timestamp.strftime("%d.%m.%Y-%H:%M:%S") }}</p>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="card mt-3 mb-3" style="background-color: #EDEAE5; background-size: cover;">
+            <div class="card-body">
+                <div class="card-text text-center">
+                    {% if prev_url %}
+                        <a role="button" href="{{ prev_url }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                            предыдущая
+                        </a>
+                    {% endif %}
+                    {% if next_url  %}
+                        <a role="button" href="{{ next_url }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                            следующая
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+{% endblock %}

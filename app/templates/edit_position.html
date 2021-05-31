@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="container text-center mt-5 pt-3">
+        <h4 class="mt-5">Желаемая должность</h4>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.desired_position.label }}<br>
+                {{ form.desired_position(size=32) }}<br>
+                {% for error in form.desired_position.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.comment_desired_position.label }}<br>
+                {{ form.comment_desired_position(size=32) }}<br>
+            </p>
+            <p>
+                {{ form.salary.label }}<br>
+                {{ form.salary(size=32) }}<br>
+                {% for error in form.salary.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.employment.label }}<br>
+                {{ form.employment(size=32) }}<br>
+                {% for error in form.employment.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.work_schedule.label }}<br>
+                {{ form.work_schedule }}
+                <br>
+                {% for error in form.work_schedule.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
+{% endblock %}

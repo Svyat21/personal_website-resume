@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container text-center mt-5 pt-3">
+        <h4 class="mt-5">Дополнительное образование</h4>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.conducting_organization.label }}<br>
+                {{ form.conducting_organization(size=32) }}<br>
+                {% for error in form.conducting_organization.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.specialization.label }}<br>
+                {{ form.specialization(size=32) }}<br>
+                {% for error in form.specialization.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.year_completion.label }}<br>
+                {{ form.year_completion(size=32) }}<br>
+                {% for error in form.year_completion.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.comment.label }}<br>
+                {{ form.comment(cols=40, rows=4) }}
+                {% for error in form.comment.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
+{% endblock %}
