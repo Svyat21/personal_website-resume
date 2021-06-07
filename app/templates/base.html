@@ -25,29 +25,25 @@
                 <div class="collapse navbar-collapse" id="basicExampleNav">
                     <ul class="navbar-nav mr-auto smooth-scroll">
                         <li id="best" class="nav-item active">
-                            <button type="button" class="btn btn-raised nav-link waves-effect waves-light mr-2" style="background-color: #FCE181;">
-                                <a href="{{ url_for('index') }}">Главная</a>
-                            </button>
+                            <a role="button" href="{{ url_for('index') }}" class="btn btn-raised nav-link waves-effect waves-light mr-2"  style="background-color: #FCE181; color: #026670;">
+                                Главная
+                            </a>
                         </li>
-                        {% if current_user.is_anonymous %}
-                        <li class="nav-item">
-                            <button type="button" class="btn btn-raised nav-link waves-effect waves-light mr-2" style="background-color: #FCE181;">
-                                <a href="{{ url_for('login') }}">Войти</a>
-                            </button>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <button type="button" class="btn btn-raised nav-link waves-effect waves-light mr-2" style="background-color: #FCE181;">
-                                <a href="{{ url_for('user', username=current_user.username) }}">Личный профиль</a>
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <button type="button" class="btn btn-raised nav-link waves-effect waves-light mr-2" style="background-color: #FCE181;">
-                                <a href="{{ url_for('logout') }}">Выйти</a>
-                            </button>
-                        </li>
+                        {% if not current_user.is_anonymous %}
+                            <a role="button" href="{{ url_for('user', username=current_user.username) }}" class="btn btn-raised nav-link waves-effect waves-light mr-2"  style="background-color: #FCE181; color: #026670;">
+                                Личный профиль
+                            </a>
                         {% endif %}
                     </ul>
+                    {% if current_user.is_anonymous %}
+                        <a role="button" href="{{ url_for('login') }}" class="btn btn-raised nav-link waves-effect waves-light mr-2"  style="background-color: #FCE181; color: #026670;">
+                            Войти
+                        </a>
+                    {% else %}
+                        <a role="button" href="{{ url_for('logout') }}" class="btn btn-raised nav-link waves-effect waves-light mr-2"  style="background-color: #FCE181; color: #026670;">
+                            Выйти
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </nav>
