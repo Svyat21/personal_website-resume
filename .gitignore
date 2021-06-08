@@ -1,2 +1,4 @@
 probe.txt
 probe.py
+/migrations
+app.db
