@@ -18,10 +18,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
-    resume_basic_information = db.relationship('ResumeBasicInformation', backref='author', lazy='dynamic')
-    resume_work_experience = db.relationship('ResumeWorkExperience', backref='author', lazy='dynamic')
-    resume_additional_information = db.relationship('ResumeAdditionalInformation', backref='author', lazy='dynamic')
-    resume_education = db.relationship('ResumeEducation', backref='author', lazy='dynamic')
+    resume = db.relationship('Resume', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     followed = db.relationship(
@@ -74,30 +71,53 @@ class Post(db.Model):
         return f'<Post {self.body}>'
 
 
-class ResumeBasicInformation(db.Model):
+class Resume(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(64))
     surname = db.Column(db.String(64))
     patronymic = db.Column(db.String(64))
     date_of_birth = db.Column(db.String(64))
     gender = db.Column(db.String(64))
+    basic_information = db.relationship('BasicInformation',  backref='resume', lazy=True, uselist=False)
+    work_experience = db.relationship('WorkExperience', backref='resume', lazy=True)
+    educations = db.relationship('Education', backref='resume', lazy=True)
+    additional_educations = db.relationship('AdditionalEducation', backref='resume', lazy=True)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+
+class BasicInformation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     city_of_residence = db.Column(db.String(64))
     phone_number = db.Column(db.String(64))
     email = db.Column(db.String(128))
-    link_social_network = db.Column(db.String(128))
-    comment_link_social_network = db.Column(db.String(500))
-    additional_link_social_network = db.Column(db.String(128))
-    additional_comment_link_social_network = db.Column(db.String(500))
+    social_networks = db.relationship('SocialNetwork', backref='basic_information', lazy=True)
     desired_position = db.Column(db.String(128))
-    comment_desired_position = db.Column(db.String(500))
+    professional_area = db.Column(db.String(500))
     salary = db.Column(db.String(64))
     employment = db.Column(db.String(64))
     work_schedule = db.Column(db.String(64))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    about_me = db.Column(db.String(1000))
+    key_skills = db.relationship('KeySkills', backref='basic_information', lazy=True)
+    knowledge_languages = db.Column(db.String(500))
+    citizenship = db.Column(db.String(128))
+    resume_id = db.Column(db.Integer, db.ForeignKey('resume.id'), nullable=False)
 
 
-class ResumeWorkExperience(db.Model):
+class SocialNetwork(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    link_social_network = db.Column(db.String(128))
+    comment_link_social_network = db.Column(db.String(500))
+    basic_information_id = db.Column(db.Integer, db.ForeignKey('basic_information.id'), nullable=False)
+
+
+class KeySkills(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    skill_tag = db.Column(db.String(128))
+    basic_information_id = db.Column(db.Integer, db.ForeignKey('basic_information.id'), nullable=False)
+
+
+class WorkExperience(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     started_working = db.Column(db.String(64))
     ending = db.Column(db.String(64))
@@ -106,28 +126,25 @@ class ResumeWorkExperience(db.Model):
     company_field_activity = db.Column(db.String(128))
     post = db.Column(db.String(128))
     responsibilities_workplace = db.Column(db.String(1000))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    resume_id = db.Column(db.Integer, db.ForeignKey('resume.id'), nullable=False)
 
 
-class ResumeAdditionalInformation(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    about_me = db.Column(db.String(1000))
-    key_skills = db.Column(db.String(500))
-    knowledge_languages = db.Column(db.String(500))
-    citizenship = db.Column(db.String(128))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-
-class ResumeEducation(db.Model):
+class Education(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     level = db.Column(db.String(128))
     educational_institution = db.Column(db.String(500))
-    conducting_organization = db.Column(db.String(500))
     faculty = db.Column(db.String(500))
     specialization = db.Column(db.String(128))
     year_completion = db.Column(db.String(64))
     comment = db.Column(db.String(1000))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    resume_id = db.Column(db.Integer, db.ForeignKey('resume.id'), nullable=False)
+
+
+class AdditionalEducation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    educational_institution = db.Column(db.String(500))
+    conducting_organization = db.Column(db.String(500))
+    specialization = db.Column(db.String(128))
+    year_completion = db.Column(db.String(64))
+    comment = db.Column(db.String(1000))
+    resume_id = db.Column(db.Integer, db.ForeignKey('resume.id'), nullable=False)
