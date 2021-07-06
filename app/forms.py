@@ -50,32 +50,37 @@ class NewPostForm(FlaskForm):
     submit = SubmitField('Оставить сообщение')
 
 
-class PersonalInformationForm(FlaskForm):
+class ResumeForm(FlaskForm):
     first_name = StringField('Ваше имя', validators=[DataRequired()])
     surname = StringField('Фамилия', validators=[DataRequired()])
     patronymic = StringField('Отчество', validators=[DataRequired()])
-    date_of_birth = StringField('Дата рождения') # DateField format='%d-%m-%y'
+    date_of_birth = StringField('Дата рождения')
     gender = SelectField('Пол', choices=[('мужчина', 'муж.'), ('женщина', 'жен.')])
-    city_of_residence = StringField('Город проживания', validators=[DataRequired()])
     submit = SubmitField('Сохранить')
 
 
-class ContactsForm(FlaskForm):
+class PersonalInformationForm(FlaskForm):
+    city_of_residence = StringField('Город проживания', validators=[DataRequired()])
     phone_number = StringField('Контактный номер', validators=[DataRequired()])
     email = StringField('Контактный email', validators=[DataRequired()])
-    link_social_network = StringField('Ссылка на соц. сеть')
-    comment_link_social_network = StringField('Комментарий')
-    additional_link_social_network = StringField('Ссылка на доп. соц. сеть')
-    additional_comment_link_social_network = StringField('Комментарий')
+    about_me = TextAreaField('Обо мне', validators=[Length(min=0, max=1000)])
+    knowledge_languages = TextAreaField('Знание языков', validators=[Length(min=0, max=500)])
+    citizenship = StringField('Гражданство', validators=[DataRequired()])
     submit = SubmitField('Сохранить')
 
 
 class PositionForm(FlaskForm):
     desired_position = StringField('Желаемая должность', validators=[DataRequired()])
-    comment_desired_position = StringField('Комментарий к желаемой должности')
+    professional_area = StringField('профессиональная сфера')
     salary = StringField('Желаемая зарплата', validators=[DataRequired()])
     employment = StringField('Занятость', validators=[DataRequired()])
     work_schedule = StringField('График', validators=[DataRequired()])
+    submit = SubmitField('Сохранить')
+
+
+class SocialNetworkForm(FlaskForm):
+    link_social_network = StringField('Ссылка на соц. сеть')
+    comment_link_social_network = StringField('Комментарий')
     submit = SubmitField('Сохранить')
 
 
@@ -90,11 +95,8 @@ class WorkExperienceForm(FlaskForm):
     submit = SubmitField('Сохранить')
 
 
-class AdditionalInformationForm(FlaskForm):
-    about_me = TextAreaField('Обо мне', validators=[Length(min=0, max=1000)])
-    key_skills = TextAreaField('Ключевые навыки', validators=[Length(min=0, max=500)])
-    knowledge_languages = TextAreaField('Знание языков', validators=[Length(min=0, max=500)])
-    citizenship = StringField('Гражданство', validators=[DataRequired()])
+class KeySkillsForm(FlaskForm):
+    skill_tag = TextAreaField('Навык (тег)', validators=[Length(min=0, max=128)])
     submit = SubmitField('Сохранить')
 
 
