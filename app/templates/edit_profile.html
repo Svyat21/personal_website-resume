@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container text-center mt-5 pt-5">
-        <h3>Редактирование профиля</h3>
+<div class="form-style">
+    <div class="form-login">
         <form action="" method="post">
+            <h1>Редактирование профиля</h1>
             {{ form.hidden_tag() }}
             <p>
                 {{ form.username.label }}<br>
@@ -22,4 +23,7 @@
             <p>{{ form.submit() }}</p>
         </form>
     </div>
+    <div class="form-photo"></div>
+</div>
+    
 {% endblock %}

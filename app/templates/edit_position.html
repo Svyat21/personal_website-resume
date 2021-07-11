@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-    <div class="container text-center mt-5 pt-3">
-        <h4 class="mt-5">Желаемая должность</h4>
+<div class="form-style">
+    <div class="form-login">
         <form action="" method="post">
+            <h1>Желаемая должность</h1>
             {{ form.hidden_tag() }}
             <p>
                 {{ form.desired_position.label }}<br>
@@ -14,8 +14,8 @@
                 {% endfor %}
             </p>
             <p>
-                {{ form.comment_desired_position.label }}<br>
-                {{ form.comment_desired_position(size=32) }}<br>
+                {{ form.professional_area.label }}<br>
+                {{ form.professional_area(size=32) }}<br>
             </p>
             <p>
                 {{ form.salary.label }}<br>
@@ -42,4 +42,6 @@
             <p>{{ form.submit() }}</p>
         </form>
     </div>
+    <div class="form-photo"></div>
+</div>
 {% endblock %}

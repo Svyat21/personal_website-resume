@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container" id="user_card">
+        <div class="card mb-5" style="background-color: #FEF9C7; color: #026670; margin-top: 5rem;">
+            <h5 class="card-header text-center">Ваше резюме</h5>
+            <div class="card-body">
+                <p class="card-text">
+                    
+                    {% if resume_с %}
+                        <h5>
+                            <!-- ФИО -->
+                            {{ resume_с.surname }} 
+                            {{ resume_с.first_name }} 
+                            {{ resume_с.patronymic }}
+                            
+                        </h5><br>
+                        <h6>Основная информация:</h6>
+                        <p class="pl-5">
+                            <!-- Пол, возраст, дата рождения, город проживания -->
+                            {{ resume_с.gender }}, 
+                            родился - {{ resume_с.date_of_birth }}<br>
+                            {% if resume_с.basic_information.city_of_residence %}
+                                проживает в г. {{ resume_с.basic_information.city_of_residence }}<br>
+                            {% endif %}
+                            <a role="button" href="{{ url_for('edit_resume', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                Редактировать персональную информацию
+                            </a><br>
+                        </p>
+                        <h6>Контакты:</h6>
+                        <p>
+                            <!-- Контакты -->
+                            {% if resume_с.basic_information.phone_number %}
+                                <p class="font-weight-bold pl-5">
+                                    {{ resume_с.basic_information.phone_number }}<br>
+                                    {{ resume_с.basic_information.email }}
+                                </p>
+                                <a role="button" href="{{ url_for('edit_personal_information', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                    Редактировать персональную информацию
+                                </a><br>
+                            {% else %}
+                                <a role="button" href="{{ url_for('personal_information', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                    Добавить персональную информацию
+                                </a><br>
+                            {% endif %}
+                            <p class="pl-5">
+                                {% if resume_с.basic_information.social_networks %}
+                                    {% for social_network in resume_с.basic_information.social_networks %}
+                                        <a href="{{ social_network.link_social_network }}">{{ social_network.comment_link_social_network }}</a><br>
+                                        <a role="button" href="{{ url_for('edit_social_network', social_network_id=social_network.id, resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                            Редактировать ссылку на соц. сеть
+                                        </a><br>
+                                    {% endfor %}
+                                    <a role="button" href="{{ url_for('social_network', basic_information_id=resume_с.basic_information.id, resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                        Добавить ссылку на соц. сеть
+                                    </a><br>
+                                {% else %}
+                                    <a role="button" href="{{ url_for('social_network', basic_information_id=resume_с.basic_information.id, resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                        Добавить ссылку на соц. сеть
+                                    </a><br>
+                                {% endif %}
+                            </p>
+                        </p>
+                        <p>
+                            <h6>Желаемая должность:</h6>
+                            <!-- Желаемая позиция -->
+                            {% if resume_с.basic_information.salary %}
+                                <h6 class="pl-5">{{ resume_с.basic_information.desired_position }}</h6>
+                                <p class="pl-5">{{ resume_с.basic_information.professional_area }}</p>
+                                <h6 class="pl-5">{{ resume_с.basic_information.salary }} руб.</h6>
+                                <p class="pl-5">
+                                    Занятость: {{ resume_с.basic_information.employment }}<br>
+                                    График работы: {{ resume_с.basic_information.work_schedule }}<br>
+                                </p>
+                                <a role="button" href="{{ url_for('edit_position', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                    Редактировать желаемую должность
+                                </a><br>
+                            {% else %}
+                                <a role="button" href="{{ url_for('edit_position', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                    Добавить желаемую должность
+                                </a><br>
+                            {% endif %}
+
+                            <h6>Опыт работы:</h6>
+                            {% if resume_с.work_experience %}
+                                {% for work in resume_с.work_experience %}
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            {{ work.started_working }}<br>
+                                            {{ work.ending }}
+                                        </div>
+                                        <div class="col-md-10">
+                                            {{ work.organization }}<br>
+                                            {{ work.region }}<br>
+                                            {{ work.company_field_activity }}<br>
+                                            {{ work.post }}<br>
+                                            {{ work.responsibilities_workplace }}
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <a role="button" href="{{ url_for('edit_work_experience', resume_id=resume_с.id, work_id=work.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                        Редактировать опыт работы
+                                    </a><br>
+                                {% endfor %}
+                                <a role="button" href="{{ url_for('work_experience', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                    Добавить опыт работы
+                                </a><br>
+                            {% else %}
+                                <a role="button" href="{{ url_for('work_experience', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                    Добавить опыт работы
+                                </a><br>
+                            {% endif %}
+
+                            <h6>Ключевые навыки:</h6>
+                                {% if resume_с.basic_information.key_skills %}
+                                    {% for skill in resume_с.basic_information.key_skills %}
+                                        <p class="pl-5">{{ skill.skill_tag }} 
+                                            <a role="button" href="{{ url_for('edit_key_skills', key_skill_id=skill.id, resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                                Изменить тег
+                                            </a>
+                                        </p>
+                                    {% endfor %}
+                                    <a role="button" href="{{ url_for('key_skills', basic_information_id=resume_с.basic_information.id, resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                        Добавить тег
+                                    </a><br>
+                                {% else %}
+                                    <a role="button" href="{{ url_for('key_skills', basic_information_id=resume_с.basic_information.id, resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                        Добавить тег
+                                    </a><br>
+                                {% endif %}
+                            <h6>Обо мне:</h6>
+                            <p class="pl-5">{{ resume_с.basic_information.about_me }}</p>
+                            <h6>Знание языков:</h6>
+                            <p class="pl-5">{{ resume_с.basic_information.knowledge_languages }}</p>
+                            <p class="pl-5">Гражданство: {{ resume_с.basic_information.citizenship }}</p>
+                        </p>
+                    {% endif %}
+
+                    <br><h6>Образование:</h6>
+                        {% if resume_с.educations %}
+                            {% for training in resume_с.educations %}
+                                <hr>
+                                <h6>{{ training.level }}</h6><br>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        {{ training.year_completion }}<br>
+                                    </div>
+                                    <div class="col-md-10">
+                                        {{ training.educational_institution }}<br>
+                                        {{ training.faculty }}<br>
+                                        {{ training.specialization }}<br>
+                                    </div>
+                                </div>
+                                <br>
+                                <a role="button" href="{{ url_for('edit_education', education_id=training.id, resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                    Редактировать образование
+                                </a><br>
+                            {% endfor %}
+                            <a role="button" href="{{ url_for('education', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                Добавить образование
+                            </a><br>
+                        {% else %}
+                            <a role="button" href="{{ url_for('education', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                Добавить образование
+                            </a>
+                        {% endif %}
+                        {% if resume_с.additional_educations %}
+                            <br><h6>Дополнительное образование:</h6>
+                            {% for training in resume_с.additional_educations %}
+                                <hr>
+                                <h6>{{ training.comment }}</h6><br>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        {{ training.year_completion }}<br>
+                                    </div>
+                                    <div class="col-md-10">
+                                        {{ training.conducting_organization }}<br>
+                                        {{ training.specialization }}<br>
+                                    </div>
+                                </div>
+                                <br>
+                                <a role="button" href="{{ url_for('edit_additional_education', additional_education_id=training.id, resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                    Редактировать дополнительное образование
+                                </a><br>
+                            {% endfor %}
+                            <a role="button" href="{{ url_for('additional_education', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                Добавить дополнительное образование
+                            </a><br>
+                        {% else %}
+                            <a role="button" href="{{ url_for('additional_education', resume_id=resume_с.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
+                                Добавить дополнительное образование
+                            </a><br>
+                        {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-style">
+    <div class="form-login">
+        <form action="" method="post">
+            <h1>Ссылка на соц. сеть</h1>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.link_social_network.label }}<br>
+                {{ form.link_social_network(size=32) }}<br>
+            </p>
+            <p>
+                {{ form.comment_link_social_network.label }}<br>
+                {{ form.comment_link_social_network(size=32) }}<br>
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
+    <div class="form-photo"></div>
+</div>
+{% endblock %}

@@ -4,81 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     {% if title %}
     <title>{{title}}</title>
     {% else %}
-    <title>Resume</title>
+    <title>Python developer</title>
     {% endif %}
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
-            <div class="container">
-                <a href="#" class="navbar-brand">Личный сайт-резюме</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="
-                #basicExampleNav" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle Navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="basicExampleNav">
-                    <ul class="navbar-nav mr-auto smooth-scroll">
-                        <li id="best" class="nav-item active">
-                            <a role="button" href="{{ url_for('index') }}" class="btn btn-raised nav-link waves-effect waves-light mr-2"  style="background-color: #FCE181; color: #026670;">
-                                Главная
-                            </a>
-                        </li>
-                        {% if not current_user.is_anonymous %}
-                            <a role="button" href="{{ url_for('user', username=current_user.username) }}" class="btn btn-raised nav-link waves-effect waves-light mr-2"  style="background-color: #FCE181; color: #026670;">
-                                Личный профиль
-                            </a>
-                        {% endif %}
-                    </ul>
-                    {% if current_user.is_anonymous %}
-                        <a role="button" href="{{ url_for('login') }}" class="btn btn-raised nav-link waves-effect waves-light mr-2"  style="background-color: #FCE181; color: #026670;">
-                            Войти
-                        </a>
+        <nav>
+            <input type="checkbox" id="checkbox-menu">
+            <label for="checkbox-menu">
+                <ul class="menu touch">
+                    <li class="logo-li"><a class="logo" href="#">Python developer</a></li>
+                    <li><a class="element" href="{{ url_for('index') }}">Главная</a></li>
+                    <li><a class="element" href="#">Блог</a></li>
+                    <li><a class="element" href="#">Контакты</a></li>
+                    <li><a class="element" href="#">Опыт</a></li>
+                    {% if not current_user.is_anonymous %}
+                    <li><a class="element" href="{{ url_for('user', username=current_user.username) }}">Личный профиль</a></li>
+                    <li><a class="element" href="{{ url_for('logout') }}">Выйти</a></li>
                     {% else %}
-                        <a role="button" href="{{ url_for('logout') }}" class="btn btn-raised nav-link waves-effect waves-light mr-2"  style="background-color: #FCE181; color: #026670;">
-                            Выйти
-                        </a>
+                    <li><a class="element" href="{{ url_for('login') }}">Войти</a></li>
                     {% endif %}
-                </div>
-            </div>
+                </ul>
+                <span class="toggle">☰</span>
+            </label>
         </nav>
     </header>
-    {% block content %}{% endblock %}
-    <!-- <div>
-        Резюме:
-        <a href="{{ url_for('index') }}">Главная</a>
-        {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">Login</a>
-        {% else %}
-        <a href="{{ url_for('user', username=current_user.username) }}">Личный профиль</a>
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
-    </div> -->
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for massage in massages %}
-        <li>{{ massage }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    <hr>
-    <div class="container text-center mt-5 pb-5">
-        <footer class="blog-footer">
-            <p>Сайт реализован на фреймворке Flask</p>
-            <p><a href="https://github.com/Svyat21/personal_website-resume">Проект на GitHub</a></p>
-            <p>sursvyat@gmail.com</p>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <div class="container">
+        <footer>
+            <div class="blog-footer">
+                <h1 class="about_me_title">Контакты</h1>
+                <ul class="foot-list">
+                    <li><p>+7 (985) 011 22 79</p></li>
+                    <li><p>sursvyat@gmail.com</p></li>
+                    <li><a class="footer-a" href="https://github.com/Svyat21/personal_website-resume">Этот проект на GitHub</a></li>
+                </ul>
+            </div>
         </footer>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 </body>
 </html>

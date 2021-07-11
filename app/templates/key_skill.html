@@ -4,12 +4,12 @@
 <div class="form-style">
     <div class="form-login">
         <form action="" method="post">
-            <h1>Пост</h1>
+            <h1>Контактная информация</h1>
             {{ form.hidden_tag() }}
             <p>
-                {{ form.post.label }}<br>
-                {{ form.post(cols=40, rows=3) }}<br>
-                {% for error in form.post.errors %}
+                {{ form.skill_tag.label }}<br>
+                {{ form.skill_tag(size=32) }}<br>
+                {% for error in form.skill_tag.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>

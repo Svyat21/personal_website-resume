@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-    <div class="container text-center mt-5 pt-3">
-        <h4 class="mt-5">Персональная информация</h4>
+<div class="form-style">
+    <div class="form-login">
         <form action="" method="post">
+            <h1>Создание резюме</h1>
             {{ form.hidden_tag() }}
             <p>
                 {{ form.first_name.label }}<br>
@@ -39,14 +39,10 @@
                 {{ form.gender }}
                 <br>
             </p>
-            <p>
-                {{ form.city_of_residence.label }}<br>
-                {{ form.city_of_residence(size=32) }}<br>
-                {% for error in form.city_of_residence.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
             <p>{{ form.submit() }}</p>
         </form>
     </div>
+    <div class="form-photo"></div>
+</div>
+    
 {% endblock %}
