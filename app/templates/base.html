@@ -19,9 +19,8 @@
                 <ul class="menu touch">
                     <li class="logo-li"><a class="logo" href="#">Python developer</a></li>
                     <li><a class="element" href="{{ url_for('index') }}">Главная</a></li>
-                    <li><a class="element" href="#">Блог</a></li>
-                    <li><a class="element" href="#">Контакты</a></li>
                     <li><a class="element" href="#">Опыт</a></li>
+                    <li><a class="element" href="#">Контакты</a></li>
                     {% if not current_user.is_anonymous %}
                     <li><a class="element" href="{{ url_for('user', username=current_user.username) }}">Личный профиль</a></li>
                     <li><a class="element" href="{{ url_for('logout') }}">Выйти</a></li>

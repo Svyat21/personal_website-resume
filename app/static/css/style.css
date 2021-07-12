@@ -200,11 +200,14 @@ footer{
 .work-experience{
     max-width: 75%;
 }
+.post-main{
+    margin-top: 80px;
+    margin-left: 218px;
+}
 .post{
     display: flex;
     max-width: 990px;
     margin-top: 80px;
-    margin-left: 218px;
 }
 .post-avatar{
     position: relative;
@@ -253,8 +256,8 @@ footer{
 .page-linc{
     color: white;
     text-decoration: none;
-    /* position: absolute; */
     margin-top: 26px;
+    margin-right: 20px;
     padding: 19px 27px 19px 27px;
     background-color: #000BFD;
     transition: color .2s linear;
@@ -283,6 +286,7 @@ footer{
     display: flex;
     align-items: center;
     margin-left: 158px;
+    margin-right: auto;
 }
 form h1{
     margin-bottom: 20px;
@@ -312,6 +316,60 @@ form input{
 #submit:hover{
     background-color: #0009CB;
 }
+.user-profile{
+    color: #1D2935;
+    max-width: 1050px;
+    margin-top: 80px;
+    margin-left: 158px;
+}
+.user-profile h1{
+    margin-bottom: 20px;
+}
+.user-card{
+    display: flex;
+}
+.user-avatar{
+    position: relative;
+    width: 20%;
+}
+.photo{
+    background-image: url(../images/Ellipse\ 3.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+}
+.bottom-user{
+    display: flex;
+    font-size: 14px;
+    max-width: 990px;
+    margin-top: 80px;
+    margin-left: 218px;
+}
+.resume-list{
+    margin-top: 158px;
+}
+.resume-linc{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.this-resume{
+    margin-top: 100px;
+    margin-left: 158px;
+}
+.this-resume h1{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.this-resume h2{
+    margin-left: 60px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.this-resume p{
+    margin-left: 60px;
+}
 .blog-footer{
     color: #1D2935;
     max-width: 1050px;
@@ -339,42 +397,3 @@ form input{
 .footer-a:visited{
     color: #0009CB;
 }
-/* @media screen and (max-width: 765px) {
-    .toggle{
-        clear: both;
-        display: block;
-        text-align: center;
-        font-size: 18px;
-        line-height: 40px;
-        width: 100%;
-        color: black;
-        background: #000BFD;
-        transition: all .1s linear;
-    }
-    .toggle:hover{
-        background: #000BFD;
-    }
-    #checkbox-menu:checked + lable .touch li{
-        opacity: 1;
-        visibility: visible;
-        transition: all .7s linear;
-    }
-    #checkbox-menu:checked + lable .touch{
-        height: 350px;
-    }
-    .menu{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        height: 0;
-        transition: height .3s linear;
-    }
-    .menu li{
-        display: flex;
-        align-self: center;
-        width: 95%;
-        opacity: 0;
-        visibility: hidden;
-    }
-} */

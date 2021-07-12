@@ -1,6 +1,12 @@
-<div id="bacg_text_1" class="card mb-3">
-    <div class="card-body">
-        <p class="card-text">{{ post.body }}</p>
-        <p class="btn btn-primary">{{ post.timestamp }}</p>
+<div class="post">
+    <div class="post-avatar">
+        <div class="avatar"></div>
+    </div>
+    <div class="post-text">
+        <div class="login">
+            <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a>
+            <p>{{ post.timestamp.strftime("%d.%m.%Y-%H:%M") }}</p>
+        </div>
+        <p>{{ post.body }}</p>
     </div>
 </div>

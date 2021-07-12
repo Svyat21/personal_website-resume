@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container" id="user_card">
-        <div class="card mb-5" style="background-color: #FEF9C7; color: #026670; margin-top: 5rem;">
-            <h5 class="card-header text-center">Вашеи резюме:</h5>
-            <div class="card-body">
-                <p class="card-text">
-                    {% if resume %}
-                        {% for i in resume %}
-                            <a role="button" href="{{ url_for('this_resume', res_id=i.id) }}" class="btn btn-secondary waves-effect waves-light btn-sm">
-                                перейти к резюме {{ i.first_name }}
-                            </a><br>
-                        {% endfor %}
-                    {% else %}
-                        <a role="button" href="{{ url_for('resume_create') }}" class="btn btn-secondary waves-effect waves-light btn-sm">
-                            Создать резюме
-                        </a><br>
-                    {% endif %}
-                </p>
+            <div class="resume-list">
+                <h1>Вашеи резюме:</h1>
+                {% if resume %}
+                    {% for i in resume %}
+                        <div class="about_me" style="margin-top: 100px;">
+                            {% if i.basic_information.desired_position %}
+                                <h1 class="about_me_title">{{ i.basic_information.desired_position }}</h1>
+                                <p class="about_me_text">{{ i.basic_information.professional_area }}</p>
+                                <p class="about_me_text">{{ i.basic_information.about_me }}</p>
+                                <p class="resume-linc"><a href="{{ url_for('this_resume', res_id=i.id) }}">перейти к резюме</a></p><br>
+                            {% else %}
+                                <p class="resume-linc"><a href="{{ url_for('this_resume', res_id=i.id) }}">Редактировать черновик</a></p><br>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <p class="resume-linc"><a href="{{ url_for('resume_create') }}">Создать новое резюме</a></p><br>
+                {% else %}
+                <p class="resume-linc"><a href="{{ url_for('resume_create') }}">Создать резюме</a></p><br>
+                {% endif %}
             </div>
-        </div>
-    </div>
 {% endblock %}
