@@ -157,7 +157,8 @@ footer{
     font-size: 24px;
 }
 .key_skills_list{
-    display: inline;
+    display: flex;
+    flex-wrap: wrap;
     padding: 0;
     margin-top: 20px;
     display: flex;
@@ -166,10 +167,9 @@ footer{
     list-style-type: none;
     font-size: 20px;
 }
-.key_skills_list li{
-    margin-right: 10px;
-}
 .key_skill_elem{
+    margin-right: 20px;
+    margin-bottom: 10px;
     color: white;
     align-self: center;
     padding: 6px 12px;
